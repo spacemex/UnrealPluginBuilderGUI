@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.github.spacemex.menus.Menu">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="6" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="500"/>
+    </constraints>
+    <properties>
+      <maximumSize width="500" height="500"/>
+      <minimumSize width="500" height="500"/>
+    </properties>
+    <border type="etched" title-justification="1" title-position="1"/>
+    <children>
+      <toolbar id="2c0ad" binding="engineBar">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="20"/>
+          </grid>
+        </constraints>
+        <properties>
+          <floatable value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="3045b" class="javax.swing.JTextField" binding="customEngine">
+            <constraints/>
+            <properties>
+              <font size="11"/>
+              <text value=""/>
+              <toolTipText value="Custom Engine Directory (string)"/>
+            </properties>
+          </component>
+          <component id="dd431" class="javax.swing.JTextField" binding="engineVersion">
+            <constraints/>
+            <properties>
+              <font size="11"/>
+              <text value=""/>
+              <toolTipText value="Engine Version (float)"/>
+            </properties>
+          </component>
+        </children>
+      </toolbar>
+      <hspacer id="c82ea">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <toolbar id="4d84b" binding="settingsBar">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="3" use-parent-layout="false">
+            <preferred-size width="-1" height="20"/>
+            <maximum-size width="500" height="40"/>
+          </grid>
+        </constraints>
+        <properties>
+          <floatable value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="bd4e4" class="javax.swing.JTextField" binding="pluginFrom">
+            <constraints/>
+            <properties>
+              <font size="11"/>
+              <toolTipText value="Plugin Directory/Repository(string)"/>
+            </properties>
+          </component>
+          <component id="2c81f" class="javax.swing.JTextField" binding="pluginOutput">
+            <constraints/>
+            <properties>
+              <font size="11"/>
+              <toolTipText value="Built Plugin Directory(string)"/>
+            </properties>
+          </component>
+          <component id="2558" class="javax.swing.JButton" binding="buildButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Build"/>
+              <toolTipText value="Start the Build Proccess"/>
+            </properties>
+          </component>
+        </children>
+      </toolbar>
+      <scrollpane id="e3873" binding="logScrollPane">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-4407612"/>
+          <enabled value="true"/>
+          <foreground color="-16777216"/>
+        </properties>
+        <border type="bevel-raised" title="Logs" title-justification="2" title-position="1"/>
+        <children>
+          <component id="86235" class="javax.swing.JTextPane" binding="logs">
+            <constraints/>
+            <properties>
+              <background color="-12303292"/>
+              <editable value="false"/>
+              <enabled value="true"/>
+              <font size="11"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="30ebd" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <alignmentX value="0.0"/>
+          <autoscrolls value="false"/>
+          <enabled value="false"/>
+          <focusable value="false"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <labelFor value="3045b"/>
+          <name value=""/>
+          <opaque value="false"/>
+          <text value="Custom Engine Directory"/>
+          <verticalAlignment value="0"/>
+          <verticalTextPosition value="1"/>
+          <visible value="true"/>
+        </properties>
+      </component>
+      <component id="6bdd9" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="false"/>
+          <focusable value="false"/>
+          <text value="Engine Version"/>
+        </properties>
+      </component>
+      <component id="e5c0" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="false"/>
+          <focusable value="false"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <labelFor value="bd4e4"/>
+          <requestFocusEnabled value="false"/>
+          <text value="Plugin Directory/Repository"/>
+          <visible value="true"/>
+        </properties>
+      </component>
+      <component id="23080" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="false"/>
+          <focusable value="false"/>
+          <requestFocusEnabled value="false"/>
+          <text value="Built Plugin Directory"/>
+          <verifyInputWhenFocusTarget value="false"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
