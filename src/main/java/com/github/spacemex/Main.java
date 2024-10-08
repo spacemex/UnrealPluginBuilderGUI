@@ -5,6 +5,8 @@ import com.github.spacemex.unreal.JTextPaneLogHandler;
 import com.github.spacemex.unreal.UnrealBuildPlugin;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
@@ -15,7 +17,7 @@ import java.util.logging.Logger;
 public class Main {
     private static final boolean DEBUG = true ;
     private static String enginePath;
-    private static double engineVersion;
+    private static double engineVersion = 5.4;
     private static String dir;
     private static String builtDir;
     private static Logger logger;
@@ -65,13 +67,56 @@ public class Main {
         //Add the panel to the frame
         frame.setContentPane(menu.getPanel());
 
+        menu.getEngineVersion().setText(String.valueOf(engineVersion));
+
         //Make the frame visible
         frame.setVisible(true);
 
+        addDocumentListener(menu.getCustomEngine(), value -> enginePath = value);
+        addDocumentListener(menu.getEngineVersion(), value -> {
+            try {
+                engineVersion = Double.parseDouble(value);
+            } catch (NumberFormatException e) {
+                logger.severe("Invalid Engine Version: -> " + value);
+            }
+        });
 
+        addDocumentListener(menu.getPluginFrom(), value -> dir = value);
+        addDocumentListener(menu.getPluginOutput(), value -> builtDir = value);
 
-        logger.severe("This Is An Error Message.");
+        menu.getBuildButton().addActionListener(e -> {
+            menu.ClearLogs();
+            menu.setEnabled(false);
+            new BuildWorker(unreal, enginePath, engineVersion, dir, builtDir, menu,logger).execute();
+        });
 
+    }
+    private static void addDocumentListener(JTextField textField, ValueUpdater valueUpdater){
+        textField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                textChanged(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                textChanged(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                textChanged(e);
+            }
+            private void textChanged(DocumentEvent e) {
+                String newValue = textField.getText();
+                valueUpdater.update(newValue);
+            }
+        });
+    }
+
+    @FunctionalInterface
+    interface ValueUpdater {
+        void update(String value);
     }
 }
 
@@ -82,35 +127,39 @@ class BuildWorker extends SwingWorker<Void, Void> {
     private final String dir;
     private final String builtDir;
     private final Menu menu;
+    private final Logger logger;
 
     public BuildWorker(UnrealBuildPlugin unreal, String customEnginePath, double engineVersion,
-                       String dir, String builtDir, Menu menu) {
+                       String dir, String builtDir, Menu menu,Logger logger) {
         this.unreal = unreal;
         this.customEnginePath = customEnginePath;
         this.engineVersion = engineVersion;
         this.dir = dir;
         this.builtDir = builtDir;
         this.menu = menu;
+        this.logger = logger;
     }
 
     @Override
     protected Void doInBackground() {
-        System.out.println("Build process started...");
-        System.out.println("Custom Engine Path: " + customEnginePath);
-        System.out.println("Engine Version: " + engineVersion);
+        logger.info("Build process started...");
 
-        if (customEnginePath != null && !customEnginePath.isEmpty() && !customEnginePath.equalsIgnoreCase("Custom Engine Directory: ")) {
+        logger.info("Engine Version: " + engineVersion);
+
+        if (customEnginePath != null && !customEnginePath.isEmpty()) {
             unreal.addCustomPath(customEnginePath);
+            logger.info("Custom Engine Path: " + customEnginePath);
         }
-        if (engineVersion != 0.0) {
+        if (engineVersion > 0) {
             unreal.setEngineVersion(engineVersion);
+            logger.info("Custom Engine Version: " + engineVersion);
         }
         unreal.initialize();
         if (dir != null && !dir.isEmpty() && !dir.equalsIgnoreCase("Plugin Directory/Repository: ")) {
             if (builtDir != null && !builtDir.isEmpty() && !builtDir.equalsIgnoreCase("Built Plugin Directory: ")) {
                 unreal.start(dir, builtDir);
             } else {
-                System.err.println("Directory Must Not Be Empty");
+                logger.severe("Built Plugin Directory is empty");
             }
         }
         return null;
@@ -122,6 +171,6 @@ class BuildWorker extends SwingWorker<Void, Void> {
         menu.setEnabled(true);
 
         // Optionally add additional steps to take after the task is done
-        System.out.println("Build process finished.");
+        logger.info("Build Process Finished.");
     }
 }
