@@ -16,15 +16,14 @@ public class Menu {
 
     public void setEnabled(boolean enabled){
         this.mainPanel.setEnabled(enabled);
-        this.engineBar.setEnabled(enabled);
-        this.settingsBar.setEnabled(enabled);
         this.customEngine.setEnabled(enabled);
         this.engineVersion.setEnabled(enabled);
         this.pluginFrom.setEnabled(enabled);
         this.pluginOutput.setEnabled(enabled);
         this.buildButton.setEnabled(enabled);
-        this.logs.setEnabled(enabled);
-        this.logScrollPane.setEnabled(enabled);
+    }
+    public void ClearLogs(){
+        this.logs.setText("");
     }
 
     public JPanel getPanel(){
