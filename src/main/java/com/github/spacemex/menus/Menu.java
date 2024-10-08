@@ -29,12 +29,7 @@ public class Menu {
     public JPanel getPanel(){
         return this.mainPanel;
     }
-    public JToolBar getEngineBar(){
-        return this.engineBar;
-    }
-    public JToolBar getSettingsBar(){
-        return this.settingsBar;
-    }
+
     public JTextField getCustomEngine(){
         return this.customEngine;
     }
@@ -52,8 +47,5 @@ public class Menu {
     }
     public JTextPane getLogs(){
         return this.logs;
-    }
-    public JScrollPane getLogScrollPane(){
-        return this.logScrollPane;
     }
 }
